@@ -65,14 +65,12 @@ internal struct PlaybookCatalogInternal: View {
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
-        
-            // Когда смена цвета выделять первый
-            .onReceive(Just(self.$store.selectedScenario), perform: { _ in
-                print("Receive ") // selectFirstScenario
+            /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
+                print("Receive ", self.store.playbook.stores) // selectFirstScenario
             })
             .onReceive(Just(colorScheme), perform: { scheme in
                 print("Scheme", scheme)
-            })
+            })*/
     }
 }
 
