@@ -160,16 +160,10 @@ private extension PlaybookCatalogInternal {
                 )
             }
             
-            /*CatalogBarItem(
-                image: Image(symbol: .info),
-                insets: .only(bottom: 4),
-                action: infoTapped
-            )*/
-
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
 
-                HStack(spacing: 12) {
+                HStack(spacing: 10) {
                     Text(name)
                         .bold()
                         .lineLimit(1)
@@ -181,19 +175,8 @@ private extension PlaybookCatalogInternal {
                             .foregroundColor(Color(.label))
                             .frame(width: 32, height: 32)
                             //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
-                            //.padding(.top, 4)
-                            //.padding(.trailing, -4)
                     }
                 }
-                
-                //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
-                 
-                /*Button(action: infoTapped) {
-                    Image(symbol: .info)
-                        .imageScale(.large)
-                        .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
-                        .padding(.leading, 16)
-                }*/
             }
         }
         .padding(.horizontal, 24)
