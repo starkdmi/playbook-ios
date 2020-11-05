@@ -169,7 +169,7 @@ private extension PlaybookCatalogInternal {
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
 
-                HStack(spacing: 14) {
+                HStack(spacing: 12) {
                     Text(name)
                         .bold()
                         .lineLimit(1)
@@ -182,7 +182,7 @@ private extension PlaybookCatalogInternal {
                             .frame(width: 32, height: 32)
                             //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                             //.padding(.top, 4)
-                            //.padding(.leading, 16)
+                            //.padding(.trailing, -4)
                     }
                 }
                 
