@@ -4,6 +4,8 @@ import SwiftUI
 /// catalog-style appearance.
 public struct PlaybookCatalog: View {
     private var underlyingView: PlaybookCatalogInternal
+    
+    @State var colorScheme: ColorScheme
 
     /// Creates a new view that displays scenarios managed by given `Playbook` instance.
     ///
@@ -14,6 +16,7 @@ public struct PlaybookCatalog: View {
         name: String = "PLAYBOOK",
         playbook: Playbook = .default,
         icons: [String: Image] = [String: Image](),
+        colorScheme: ColorScheme = .light,
         infoTapped: @escaping () -> () = {}
     ) {
         underlyingView = PlaybookCatalogInternal(
@@ -23,7 +26,8 @@ public struct PlaybookCatalog: View {
             icons: icons,
             infoTapped: infoTapped
         )
-    }
+        self.colorScheme = colorScheme
+     }
 
     /// Declares the content and behavior of this view.
     public var body: some View {
