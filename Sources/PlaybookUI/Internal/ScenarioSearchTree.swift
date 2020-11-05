@@ -1,17 +1,19 @@
 import SwiftUI
 
 internal struct ScenarioSearchTree: View {
+    var icons: [String: String]
+    
     @ViewBuilder
     var body: some View {
         #if swift(>=5.3)
         if #available(iOS 14.0, *) {
-            ScenarioSearchTreeIOS14()
+            ScenarioSearchTreeIOS14(icons: icons)
         }
         else {
-            ScenarioSearchTreeIOS13()
+            ScenarioSearchTreeIOS13(icons: icons)
         }
         #else
-        ScenarioSearchTreeIOS13()
+        ScenarioSearchTreeIOS13(icons: icons)
         #endif
     }
 }
@@ -21,6 +23,10 @@ internal struct ScenarioSearchTree: View {
 internal struct ScenarioSearchTreeIOS14: View {
     @EnvironmentObject
     var store: CatalogStore
+    
+    var icons: [String: String]
+    
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(spacing: .zero) {
@@ -94,9 +100,14 @@ private extension ScenarioSearchTreeIOS14 {
                             .foregroundColor(Color(.label))
                             .rotationEffect(.radians(isOpened ? .pi / 2 : 0))
 
-                        Image(symbol: .bookmarkFill)
+                        /*Image(symbol: .bookmarkFill)
                             .imageScale(.medium)
-                            .foregroundColor(Color(.primaryBlue))
+                            .foregroundColor(Color(.primaryBlue))*/
+                        
+                        Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
+                            .renderingMode(.template)
+                            .imageScale(.medium)
+                            .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
 
                         Text(data.kind.rawValue)
                             .bold()
@@ -183,6 +194,10 @@ private extension ScenarioSearchTreeIOS14 {
 internal struct ScenarioSearchTreeIOS13: View {
     @EnvironmentObject
     private var store: CatalogStore
+    
+    var icons: [String: String]
+    
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(spacing: 0) {
@@ -301,9 +316,14 @@ private extension ScenarioSearchTreeIOS13 {
                     .foregroundColor(Color(.label))
                     .rotationEffect(.radians(isOpened ? .pi / 2 : 0))
 
-                Image(symbol: .bookmarkFill)
+                /*Image(symbol: .bookmarkFill)
                     .imageScale(.medium)
-                    .foregroundColor(Color(.primaryBlue))
+                    .foregroundColor(Color(.primaryBlue))*/
+                
+                Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
+                    .renderingMode(.template)
+                    .imageScale(.medium)
+                    .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
 
                 Text(data.kind.rawValue)
                     .bold()

@@ -12,12 +12,14 @@ public struct PlaybookCatalog: View {
     ///   - playbook: A `Playbook` instance that manages scenarios to be displayed.
     public init(
         name: String = "PLAYBOOK",
-        playbook: Playbook = .default
+        playbook: Playbook = .default,
+        icons: [String: String] = [String: String]()
     ) {
         underlyingView = PlaybookCatalogInternal(
             name: name,
             playbook: playbook,
-            store: CatalogStore(playbook: playbook)
+            store: CatalogStore(playbook: playbook),
+            icons: icons
         )
     }
 
@@ -33,6 +35,8 @@ internal struct PlaybookCatalogInternal: View {
 
     @ObservedObject
     var store: CatalogStore
+    
+    var icons: [String: String]
 
     @WeakReference
     var contentUIView: UIView?
@@ -63,7 +67,7 @@ private extension PlaybookCatalogInternal {
             return AnyView(
                 CatalogSplitStyle(
                     name: name,
-                    searchTree: ScenarioSearchTree(),
+                    searchTree: ScenarioSearchTree(icons: icons),
                     content: scenarioContent
                 )
             )
@@ -72,7 +76,7 @@ private extension PlaybookCatalogInternal {
             return AnyView(
                 CatalogDrawerStyle(
                     name: name,
-                    searchTree: ScenarioSearchTree(),
+                    searchTree: ScenarioSearchTree(icons: icons),
                     content: scenarioContent
                 )
             )
