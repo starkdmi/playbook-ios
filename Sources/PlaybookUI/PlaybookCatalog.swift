@@ -159,6 +159,12 @@ private extension PlaybookCatalogInternal {
                     action: share
                 )
             }
+            
+            CatalogBarItem(
+                image: Image(symbol: .info),
+                insets: .only(bottom: 4),
+                action: infoTapped
+            )
 
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
@@ -168,11 +174,7 @@ private extension PlaybookCatalogInternal {
                     .lineLimit(1)
                     .font(.system(size: 24))
                 
-                CatalogBarItem(
-                    image: Image(symbol: .info),
-                    insets: .only(leading: 16),
-                    action: infoTapped
-                )//.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
+                //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                  
                 /*Button(action: infoTapped) {
                     Image(symbol: .info)
