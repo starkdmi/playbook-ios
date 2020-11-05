@@ -179,7 +179,7 @@ private extension PlaybookCatalogInternal {
                         Image(symbol: .info)
                             .imageScale(.large)
                             .foregroundColor(Color(.label))
-                            .frame(width: 44, height: 4)
+                            .frame(width: 32, height: 32)
                             //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                             //.padding(.top, 4)
                             //.padding(.leading, 16)
