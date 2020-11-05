@@ -26,7 +26,7 @@ public struct PlaybookCatalog: View {
             icons: icons,
             infoTapped: infoTapped
         )
-        colorScheme = colorScheme
+        self.colorScheme = colorScheme
      }
 
     /// Declares the content and behavior of this view.
