@@ -170,7 +170,7 @@ private extension PlaybookCatalogInternal {
                 
                 CatalogBarItem(
                     image: Image(symbol: .info),
-                    insets: .only(bottom: 4),
+                    insets: .only(leading: 16),
                     action: infoTapped
                 )//.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                  
