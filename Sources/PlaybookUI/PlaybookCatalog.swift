@@ -167,13 +167,19 @@ private extension PlaybookCatalogInternal {
                     .bold()
                     .lineLimit(1)
                     .font(.system(size: 24))
+                
+                CatalogBarItem(
+                    image: Image(symbol: .info),
+                    insets: .only(bottom: 4),
+                    action: infoTapped
+                )//.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                  
-                Button(action: infoTapped) {
+                /*Button(action: infoTapped) {
                     Image(symbol: .info)
                         .imageScale(.large)
                         .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                         .padding(.leading, 16)
-                }
+                }*/
             }
         }
         .padding(.horizontal, 24)
