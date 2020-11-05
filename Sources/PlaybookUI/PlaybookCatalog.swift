@@ -160,19 +160,30 @@ private extension PlaybookCatalogInternal {
                 )
             }
             
-            CatalogBarItem(
+            /*CatalogBarItem(
                 image: Image(symbol: .info),
                 insets: .only(bottom: 4),
                 action: infoTapped
-            )
+            )*/
 
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
 
-                Text(name)
-                    .bold()
-                    .lineLimit(1)
-                    .font(.system(size: 24))
+                HStack(spacing: 12) {
+                    Text(name)
+                        .bold()
+                        .lineLimit(1)
+                        .font(.system(size: 24))
+                    
+                    Button(action: infoTapped) {
+                        Image(symbol: .info)
+                            .imageScale(.large)
+                            .foregroundColor(Color(.label))
+                            //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
+                            //.padding(.top, 4)
+                            //.padding(.leading, 16)
+                    }
+                }
                 
                 //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                  
