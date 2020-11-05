@@ -13,7 +13,7 @@ public struct PlaybookCatalog: View {
     public init(
         name: String = "PLAYBOOK",
         playbook: Playbook = .default,
-        icons: [String: String] = [String: String](),
+        icons: [String: Image] = [String: Image](),
         infoTapped: @escaping () -> () = {}
     ) {
         underlyingView = PlaybookCatalogInternal(
@@ -38,7 +38,7 @@ internal struct PlaybookCatalogInternal: View {
     @ObservedObject
     var store: CatalogStore
     
-    var icons: [String: String]
+    var icons: [String: Image]
     var infoTapped: () -> ()
 
     @Environment(\.colorScheme) var colorScheme

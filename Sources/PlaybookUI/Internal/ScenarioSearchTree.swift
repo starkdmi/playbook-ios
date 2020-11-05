@@ -1,7 +1,7 @@
 import SwiftUI
 
 internal struct ScenarioSearchTree: View {
-    var icons: [String: String]
+    var icons: [String: Image]
     
     @ViewBuilder
     var body: some View {
@@ -24,7 +24,7 @@ internal struct ScenarioSearchTreeIOS14: View {
     @EnvironmentObject
     var store: CatalogStore
     
-    var icons: [String: String]
+    var icons: [String: Image]
     
     @Environment(\.colorScheme) var colorScheme
 
@@ -104,7 +104,8 @@ private extension ScenarioSearchTreeIOS14 {
                             .imageScale(.medium)
                             .foregroundColor(Color(.primaryBlue))*/
                         
-                        Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
+                        (self.icons[data.kind.rawValue] ?? Image(symbol: .bookmarkFill))
+                        //Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
                             .renderingMode(.template)
                             .imageScale(.medium)
                             .foregroundColor(Color(.primaryBlue))
@@ -196,7 +197,7 @@ internal struct ScenarioSearchTreeIOS13: View {
     @EnvironmentObject
     private var store: CatalogStore
     
-    var icons: [String: String]
+    var icons: [String: Image]
     
     @Environment(\.colorScheme) var colorScheme
 
@@ -321,7 +322,8 @@ private extension ScenarioSearchTreeIOS13 {
                     .imageScale(.medium)
                     .foregroundColor(Color(.primaryBlue))*/
                 
-                Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
+                (self.icons[data.kind.rawValue] ?? Image(symbol: .bookmarkFill))
+                //Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
                     .renderingMode(.template)
                     .imageScale(.medium)
                     .foregroundColor(Color(.primaryBlue))
