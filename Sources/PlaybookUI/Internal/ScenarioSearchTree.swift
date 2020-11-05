@@ -19,7 +19,7 @@ internal struct ScenarioSearchTree: View {
 }
 
 #if swift(>=5.3)
-@available(macOS 12.0, *)
+//@available(macOS 12.0, *)
 @available(iOS 14.0, *)
 internal struct ScenarioSearchTreeIOS14: View {
     @EnvironmentObject
@@ -66,7 +66,7 @@ internal struct ScenarioSearchTreeIOS14: View {
     }
 }
 
-@available(macOS 12.0, *)
+//@available(macOS 12.0, *)
 @available(iOS 14.0, *)
 private extension ScenarioSearchTreeIOS14 {
     func searchTextBinding() -> Binding<String?> {

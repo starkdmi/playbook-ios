@@ -68,7 +68,7 @@ public struct PlaybookGallery: View {
 }
 
 #if swift(>=5.3)
-@available(macOS 12.0, *)
+//@available(macOS 12.0, *)
 @available(iOS 14.0, *)
 internal struct PlaybookGalleryIOS14: View {
     var name: String
@@ -112,7 +112,7 @@ internal struct PlaybookGalleryIOS14: View {
     }
 }
 
-@available(macOS 12.0, *)
+//@available(macOS 12.0, *)
 @available(iOS 14.0, *)
 private extension PlaybookGalleryIOS14 {
     @ViewBuilder
