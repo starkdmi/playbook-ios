@@ -21,4 +21,11 @@ public struct ScenarioKind: Hashable, RawRepresentable, ExpressibleByStringLiter
     public init(stringLiteral value: String) {
         self.init(rawValue: value)
     }
+
+    // @starkdmi
+    /*public var icon: String = "bookmark.fill"
+    public init(value: String, icon: String = "bookmark.fill") {
+        self.rawValue = value
+        self.icon = icon
+    }*/
 }

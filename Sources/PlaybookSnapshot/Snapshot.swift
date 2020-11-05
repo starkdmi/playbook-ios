@@ -23,9 +23,6 @@ public struct Snapshot: TestTool {
     /// A set of snapshot environment simulating devices.
     public var devices: [SnapshotDevice]
 
-    /// A closure to preprocess scenario UIView before generating snapshot.
-    public var viewPreprocessor: ((UIView) -> UIView)?
-
     /// Creates a new snapshot tool for export all image files into specified directory.
     ///
     /// - Parameters:
@@ -36,7 +33,6 @@ public struct Snapshot: TestTool {
     ///   - scale: A rendering scale of the snapshot image.
     ///   - keyWindow: The key window of the application.
     ///   - devices: A set of snapshot environment simulating devices.
-    ///   - viewPreprocessor: A closure to preprocess scenario UIView before generating snapshot.
     public init(
         directory: URL,
         clean: Bool = false,
@@ -44,8 +40,7 @@ public struct Snapshot: TestTool {
         timeout: TimeInterval = 600,
         scale: CGFloat = UIScreen.main.scale,
         keyWindow: UIWindow? = nil,
-        devices: [SnapshotDevice],
-        viewPreprocessor: ((UIView) -> UIView)? = nil
+        devices: [SnapshotDevice]
     ) {
         self.directory = directory
         self.clean = clean
@@ -54,7 +49,6 @@ public struct Snapshot: TestTool {
         self.scale = scale
         self.keyWindow = keyWindow
         self.devices = devices
-        self.viewPreprocessor = viewPreprocessor
     }
 
     /// Generates snapshot images for passed `Playbook` instance.
@@ -99,7 +93,6 @@ public struct Snapshot: TestTool {
                         format: format,
                         scale: scale,
                         keyWindow: keyWindow,
-                        viewPreprocessor: viewPreprocessor,
                         handler: { data in
                             attemptToWrite(data: data, scenario: scenario)
                             group.leave()

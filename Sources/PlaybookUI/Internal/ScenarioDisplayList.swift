@@ -8,6 +8,10 @@ internal struct ScenarioDisplayList: View {
     @EnvironmentObject
     private var store: GalleryStore
 
+    @Environment(\.colorScheme) var colorScheme
+
+    var icons: [String: String]
+
     @Environment(\.galleryDependency)
     private var dependency
 
@@ -17,21 +21,26 @@ internal struct ScenarioDisplayList: View {
         data: SearchedListData,
         safeAreaInsets: EdgeInsets,
         serialDispatcher: SerialMainDispatcher,
+        icons: [String: String],
         onSelect: @escaping (SearchedData) -> Void
     ) {
         self.data = data
         self.safeAreaInsets = safeAreaInsets
         self.serialDispatcher = serialDispatcher
+        self.icons = icons
         self.onSelect = onSelect
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
-                Image(symbol: .bookmarkFill)
+                //Image(symbol: .bookmarkFill)
+                Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill") // @starkdmi
+                    .renderingMode(.template)
                     .imageScale(.medium)
                     .font(.system(size: 20))
-                    .foregroundColor(Color(.primaryBlue))
+                    //.foregroundColor(Color(.primaryBlue))
+                    .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
 
                 Text(data.kind.rawValue)
                     .foregroundColor(Color(.label))

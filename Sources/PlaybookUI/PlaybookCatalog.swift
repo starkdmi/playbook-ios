@@ -5,8 +5,13 @@ import SwiftUI
 public struct PlaybookCatalog: View {
     private var underlyingView: PlaybookCatalogInternal
 
+    /// Declares the content and behavior of this view.
+    public var body: some View {
+        underlyingView
+    }
+
     /// Creates a new view that displays scenarios managed by given `Playbook` instance.
-    ///
+    /// 
     /// - Parameters:
     ///   - name: A name of `Playbook` to be displayed on the user interface.
     ///   - playbook: A `Playbook` instance that manages scenarios to be displayed.
@@ -20,11 +25,6 @@ public struct PlaybookCatalog: View {
             store: CatalogStore(playbook: playbook)
         )
     }
-
-    /// Declares the content and behavior of this view.
-    public var body: some View {
-        underlyingView
-    }
 }
 
 internal struct PlaybookCatalogInternal: View {
@@ -35,15 +35,15 @@ internal struct PlaybookCatalogInternal: View {
     var store: CatalogStore
 
     @WeakReference
-    var contentUIView: UIView?
+    private var contentUIView: UIView?
 
     @Environment(\.horizontalSizeClass)
-    var horizontalSizeClass
+    private var horizontalSizeClass
 
     @Environment(\.verticalSizeClass)
-    var verticalSizeClass
+    private var verticalSizeClass
 
-    var body: some View {
+    public var body: some View {
         platformContent()
             .environmentObject(store)
             .onAppear(perform: selectFirstScenario)
