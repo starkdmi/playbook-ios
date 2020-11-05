@@ -255,7 +255,8 @@ private extension PlaybookGalleryInternal {
                 Spacer.zero
             }
 
-            message("Preparing snapshots ...", font: .system(size: 24))
+            // @starkdmi
+            message("Loading ...", font: .system(size: 24))
 
             Image(symbol: .book)
                 .imageScale(.large)
