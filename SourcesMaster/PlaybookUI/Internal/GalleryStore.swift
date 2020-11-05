@@ -36,7 +36,7 @@ internal final class GalleryStore: ScenarioSearchStore {
     @discardableResult
     func takeSnapshots() -> Self {
         snapshotLoader.clean()
-
+    
         playbook.stores.lazy
             .flatMap { store in
                 store.scenarios.map { scenario in

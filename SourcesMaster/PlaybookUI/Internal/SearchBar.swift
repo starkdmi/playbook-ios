@@ -1,25 +1,7 @@
 import SwiftUI
 import UIKit
 
-internal struct SearchBar: View {
-    @Binding
-    var text: String?
-    var height: CGFloat
-
-    var body: some View {
-        SearchBarWrapper(text: $text, placeholder: "Search") { searchBar in
-            let backgroundImage = UIColor.tertiarySystemFill.circleImage(length: self.height)
-            searchBar.setSearchFieldBackgroundImage(backgroundImage, for: .normal)
-        }
-        .animation(nil)
-        .accentColor(Color(.primaryBlue))
-        .frame(height: height)
-        .padding(.top, 16)
-        .padding(.horizontal, 8)
-    }
-}
-
-private struct SearchBarWrapper: UIViewRepresentable {
+internal struct SearchBar: UIViewRepresentable {
     @Binding
     var text: String?
 
@@ -47,16 +29,16 @@ private struct SearchBarWrapper: UIViewRepresentable {
     }
 }
 
-private extension SearchBarWrapper {
+internal extension SearchBar {
     final class Coordinator: NSObject, UISearchBarDelegate {
-        let base: SearchBarWrapper
+        let searchBar: SearchBar
 
-        init(_ base: SearchBarWrapper) {
-            self.base = base
+        init(_ searchBar: SearchBar) {
+            self.searchBar = searchBar
         }
 
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            base.text = searchText
+            self.searchBar.text = searchText
         }
 
         func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

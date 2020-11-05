@@ -9,12 +9,16 @@ internal struct ScenarioDisplaySheet: View {
 
     @WeakReference
     private var contentUIView: UIView?
-    
+
+    var colorScheme: ColorScheme // @starkdmi
+
     init(
         data: SearchedData,
+        colorScheme: ColorScheme = .light, // @starkdmi
         onClose: @escaping () -> Void
     ) {
         self.data = data
+        self.colorScheme = colorScheme // @starkdmi
         self.onClose = onClose
     }
 
@@ -64,6 +68,7 @@ private extension ScenarioDisplaySheet {
             Text(data.scenario.name.rawValue)
                 .bold()
                 .lineLimit(1)
+                //.foregroundColor(colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : .white) // @starkdmi
 
             Spacer(minLength: 24)
 
@@ -71,11 +76,18 @@ private extension ScenarioDisplaySheet {
         }
         .padding(.horizontal, 24)
         .frame(height: topBarHeight)
+        /*.background( // @starkdmi
+            colorScheme == .light ? AnyView(Blur(style: .systemMaterial).edgesIgnoringSafeArea(.all)) : AnyView(Color(red: 24/255, green: 36/255, blue: 45/255)),
+            alignment: .topLeading
+        )*/
         .background(
-            Blur(style: .systemMaterial)
+            Blur(style: .systemMaterial) // .dark for dark mode +-
                 .edgesIgnoringSafeArea(.all),
             alignment: .topLeading
-        )
+        )/*
+        .background( // @starkdmi
+            colorScheme == .light ? .white : Color(red: 24/255, green: 36/255, blue: 45/255) // Color(red: 41/255, green: 55/255, blue: 63/255)
+        )*/
     }
 
     func shareButton() -> some View {
@@ -84,6 +96,7 @@ private extension ScenarioDisplaySheet {
                 .imageScale(.large)
                 .font(.headline)
                 .foregroundColor(Color(.label))
+                //.foregroundColor(colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : .white) // @starkdmi
                 .frame(width: 30, height: 30)
         }
     }
@@ -92,6 +105,7 @@ private extension ScenarioDisplaySheet {
         Button(action: onClose) {
             ZStack {
                 Color.gray.opacity(0.2)
+                //(colorScheme == .light ? Color.gray.opacity(0.2) : Color(red: 41/255, green: 55/255, blue: 63/255)) // @starkdmi
                     .clipShape(Circle())
                     .frame(width: 30, height: 30)
 
@@ -99,6 +113,7 @@ private extension ScenarioDisplaySheet {
                     .imageScale(.large)
                     .font(Font.subheadline.bold())
                     .foregroundColor(.gray)
+                    //.foregroundColor(colorScheme == .light ?  Color(red: 24/255, green: 36/255, blue: 45/255) : .white) // @starkdmi
             }
         }
     }
