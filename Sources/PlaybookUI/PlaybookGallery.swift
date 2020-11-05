@@ -42,14 +42,22 @@ public struct PlaybookGallery: View {
     public var body: some View {
         #if swift(>=5.3)
         if #available(iOS 14.0, *) {
-            PlaybookGalleryIOS14(
-                name: name,
-                snapshotColorScheme: snapshotColorScheme,
-                store: store,
-                icons: icons
-            )
-        }
-        else {
+            if #available(macOS 10.0, *) {
+                PlaybookGalleryIOS13(
+                    name: name,
+                    snapshotColorScheme: snapshotColorScheme,
+                    store: store,
+                    icons: icons
+                )
+            } else {
+                PlaybookGalleryIOS14(
+                    name: name,
+                    snapshotColorScheme: snapshotColorScheme,
+                    store: store,
+                    icons: icons
+                )
+            }
+        } else {
             PlaybookGalleryIOS13(
                 name: name,
                 snapshotColorScheme: snapshotColorScheme,
