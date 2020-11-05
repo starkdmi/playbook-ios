@@ -5,7 +5,7 @@ import SwiftUI
 public struct PlaybookCatalog: View {
     private var underlyingView: PlaybookCatalogInternal
     
-    @State var colorScheme: ColorScheme
+    @State var colorScheme: ColorScheme = .light
 
     /// Creates a new view that displays scenarios managed by given `Playbook` instance.
     ///
@@ -26,7 +26,7 @@ public struct PlaybookCatalog: View {
             icons: icons,
             infoTapped: infoTapped
         )
-        self.colorScheme = colorScheme
+        colorScheme = colorScheme
      }
 
     /// Declares the content and behavior of this view.
