@@ -56,6 +56,8 @@ internal struct PlaybookCatalogInternal: View {
 
     @Environment(\.verticalSizeClass)
     var verticalSizeClass
+    
+    let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
 
     var body: some View {
         platformContent()
@@ -76,7 +78,7 @@ internal struct PlaybookCatalogInternal: View {
 
 private extension PlaybookCatalogInternal {
     var bottomBarHeight: CGFloat { 44 }
-
+    
     func platformContent() -> some View {
         switch (horizontalSizeClass, verticalSizeClass) {
         case (.regular, .regular):
@@ -109,6 +111,10 @@ private extension PlaybookCatalogInternal {
                     contentUIView: _contentUIView
                 )
                 .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
             )
         }
         else {
