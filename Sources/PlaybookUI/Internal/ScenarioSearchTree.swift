@@ -107,7 +107,7 @@ private extension ScenarioSearchTreeIOS14 {
                         Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
                             .renderingMode(.template)
                             .imageScale(.medium)
-                            .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
+                            .foregroundColor(self.colorScheme == .light ? Color(.primaryBlue) : Color.white)
 
                         Text(data.kind.rawValue)
                             .bold()
@@ -323,7 +323,7 @@ private extension ScenarioSearchTreeIOS13 {
                 Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
                     .renderingMode(.template)
                     .imageScale(.medium)
-                    .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
+                    .foregroundColor(self.colorScheme == .light ? Color(.primaryBlue) : Color.white)
 
                 Text(data.kind.rawValue)
                     .bold()

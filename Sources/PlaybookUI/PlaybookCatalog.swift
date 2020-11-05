@@ -162,6 +162,8 @@ private extension PlaybookCatalogInternal {
                     .bold()
                     .lineLimit(1)
                     .font(.system(size: 24))
+                
+                Image(symbol: .bookmarkFill)
             }
         }
         .padding(.horizontal, 24)
