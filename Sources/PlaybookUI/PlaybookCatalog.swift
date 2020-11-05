@@ -169,8 +169,8 @@ private extension PlaybookCatalogInternal {
                     .font(.system(size: 24))
                  
                 Button(action: infoTapped) {
-                    Image(symbol: .infoFill)
-                        .imageScale(.medium)
+                    Image(symbol: .info)
+                        .imageScale(.large)
                         .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                         .padding(.leading, 16)
                 }
