@@ -13,13 +13,15 @@ public struct PlaybookCatalog: View {
     public init(
         name: String = "PLAYBOOK",
         playbook: Playbook = .default,
-        icons: [String: String] = [String: String]()
+        icons: [String: String] = [String: String](),
+        infoTapped: @escaping () -> () = {}
     ) {
         underlyingView = PlaybookCatalogInternal(
             name: name,
             playbook: playbook,
             store: CatalogStore(playbook: playbook),
-            icons: icons
+            icons: icons,
+            infoTapped: infoTapped
         )
     }
 
@@ -37,7 +39,10 @@ internal struct PlaybookCatalogInternal: View {
     var store: CatalogStore
     
     var icons: [String: String]
+    var infoTapped: () -> ()
 
+    @Environment(\.colorScheme) var colorScheme
+    
     @WeakReference
     var contentUIView: UIView?
 
@@ -162,8 +167,13 @@ private extension PlaybookCatalogInternal {
                     .bold()
                     .lineLimit(1)
                     .font(.system(size: 24))
-                
-                Image(symbol: .info).padding(.leading, 24)
+                 
+                Button(action: infoTapped) {
+                    Image(symbol: .infoFill)
+                        .imageScale(.medium)
+                        .foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
+                        .padding(.leading, 16)
+                }
             }
         }
         .padding(.horizontal, 24)

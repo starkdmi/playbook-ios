@@ -38,7 +38,8 @@ internal extension UIColor {
 internal extension Image {
     enum SFSymbols: String {
         case book = "book"
-        case info = "info.circle" // info info.circle info.circle.fill
+        case info = "info.circle"
+        case infoFill = "info.circle.fill"
         case multiply = "multiply"
         case chevronRight = "chevron.right"
         case bookmarkFill = "bookmark.fill"
