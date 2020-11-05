@@ -198,6 +198,13 @@ internal struct PlaybookGalleryIOS13: View {
             .onAppear {
                 self.dependency.scheduler.schedule(on: .main, action: self.store.prepare)
             }
+            /*.onReceive(Just(self.$store.status), perform: { status in
+                switch status.wrappedValue {
+                    case .standby:
+                        self.dependency.scheduler.schedule(on: .main, action: self.store.prepare)
+                    default: print("@starkdmi")
+                }
+            })*/
         }
     }
 }

@@ -1,11 +1,12 @@
 import SwiftUI
+import Combine
 
 /// A view that displays scenarios manged by given `Playbook` instance with
 /// catalog-style appearance.
 public struct PlaybookCatalog: View {
     private var underlyingView: PlaybookCatalogInternal
     
-    @State var colorScheme: ColorScheme = .light
+    //@State var colorScheme: ColorScheme = .light
 
     /// Creates a new view that displays scenarios managed by given `Playbook` instance.
     ///
@@ -16,7 +17,7 @@ public struct PlaybookCatalog: View {
         name: String = "PLAYBOOK",
         playbook: Playbook = .default,
         icons: [String: Image] = [String: Image](),
-        colorScheme: ColorScheme = .light,
+        //colorScheme: ColorScheme = .light,
         infoTapped: @escaping () -> () = {}
     ) {
         underlyingView = PlaybookCatalogInternal(
@@ -26,7 +27,7 @@ public struct PlaybookCatalog: View {
             icons: icons,
             infoTapped: infoTapped
         )
-        self.colorScheme = colorScheme
+        //self.colorScheme = colorScheme
      }
 
     /// Declares the content and behavior of this view.
@@ -64,6 +65,14 @@ internal struct PlaybookCatalogInternal: View {
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
+        
+            // Когда смена цвета выделять первый
+            .onReceive(Just(self.$store.selectedScenario), perform: { _ in
+                print("Receive ") // selectFirstScenario
+            })
+            .onReceive(Just(colorScheme), perform: { scheme in
+                print("Scheme", scheme)
+            })
     }
 }
 
