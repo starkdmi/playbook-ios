@@ -68,13 +68,8 @@ internal struct PlaybookCatalogInternal: View {
                     .edgesIgnoringSafeArea(.all)
             }
             .onReceive(Just(application.applicationState), perform: { state in
-                if state != .background {
-                    //let buf = store.selectedScenario
-                    //store.selectedScenario = nil
-                    //store.selectedScenario = buf
-                    
+                if state != .background { // Reload when app returns from background
                     selectFirstScenario()
-                    //self.store.start()
                 }
             })
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
