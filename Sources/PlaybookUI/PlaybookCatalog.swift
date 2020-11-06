@@ -68,8 +68,10 @@ internal struct PlaybookCatalogInternal: View {
                     .edgesIgnoringSafeArea(.all)
             }
             .onReceive(Just(application.applicationState), perform: { state in
-                selectFirstScenario()
-                print("PlaybookCatalog Application State Changed", state.rawValue)
+                if state != .background {
+                    //selectFirstScenario()
+                    self.store.start()
+                }
             })
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
                 print("Receive ", self.store.playbook.stores) // selectFirstScenario
