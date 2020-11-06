@@ -67,6 +67,10 @@ internal struct PlaybookCatalogInternal: View {
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
+            .onReceive(Just(application.applicationState), perform: { state in
+                selectFirstScenario()
+                print("PlaybookCatalog Application State Changed", state.rawValue)
+            })
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
                 print("Receive ", self.store.playbook.stores) // selectFirstScenario
             })
