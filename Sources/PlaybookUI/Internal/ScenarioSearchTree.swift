@@ -40,6 +40,7 @@ internal struct ScenarioSearchTreeIOS14: View {
             }
             else {
                 ScrollView {
+                    #if targetEnvironment(macCatalyst)
                     LazyVStack(spacing: .zero) {
                         ForEach(store.result.data, id: \.kind) { data in
                             let isOpened = currentOpenedKindsBinding().wrappedValue.contains(data.kind)
@@ -59,6 +60,9 @@ internal struct ScenarioSearchTreeIOS14: View {
                             }
                         }
                     }
+                    #else
+                    EmptyView()
+                    #endif
                 }
             }
         }
@@ -68,10 +72,7 @@ internal struct ScenarioSearchTreeIOS14: View {
     }
 }
 
-//@available(macOS 12.0, *)
-//@available(OSX 12.0, *)
 @available(iOS 14.0, *)
-//@available(OSX, unavailable)
 private extension ScenarioSearchTreeIOS14 {
     func searchTextBinding() -> Binding<String?> {
         Binding(

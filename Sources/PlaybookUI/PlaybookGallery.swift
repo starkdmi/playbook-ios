@@ -73,13 +73,15 @@ public struct PlaybookGallery: View {
 // https://medium.com/@luca.jon/create-an-inset-grouped-list-in-swiftui-for-macos-20c0bcfaaa7
 // #endif
 
-#if os(macOS)
+/*#if os(macOS)
 public struct LazyVStack<Content> : View where Content : View {
     public init(alignment: HorizontalAlignment = .center, spacing: CGFloat? = nil, pinnedViews: PinnedScrollableViews = .init(), @ViewBuilder content: () -> Content)
 
     public typealias Body = Never
 }
-#endif
+#endif*/
+
+// #if targetEnvironment(macCatalyst)
 
 #if swift(>=5.3)
 //@available(macOS 12.0, *)
@@ -102,7 +104,7 @@ internal struct PlaybookGalleryIOS14: View {
         GeometryReader { geometry in
             NavigationView {
                 ScrollView {
-                    if #available(iOS 14.0, *) {
+                    #if targetEnvironment(macCatalyst)
                         LazyVStack(spacing: .zero) {
                             SearchBar(text: $store.searchText, height: 44)
                                 .padding(.leading, geometry.safeAreaInsets.leading)
@@ -110,10 +112,9 @@ internal struct PlaybookGalleryIOS14: View {
 
                             statefulBody(geometry: geometry)
                         }
-                    }
-                    else {
-                        EmptyView()
-                    }
+                    #else
+                    EmptyView()
+                    #endif
                 }
                 .ignoresSafeArea(edges: .horizontal)
                 .navigationBarTitle(name)
