@@ -101,8 +101,9 @@ internal struct PlaybookGalleryIOS14: View {
     var dependency
 
     var body: some View {
-        #if !targetEnvironment(macCatalyst)
+        
         GeometryReader { geometry in
+            #if !targetEnvironment(macCatalyst)
             NavigationView {
                 ScrollView {
                     LazyVStack(spacing: .zero) {
@@ -127,10 +128,10 @@ internal struct PlaybookGalleryIOS14: View {
             .onAppear {
                 dependency.scheduler.schedule(on: .main, action: store.prepare)
             }
+            #else
+            Text("MacOS unavialable")
+            #endif
         }
-        #else
-        Text("MacOS unavialable")
-        #endif
     }
 }
 

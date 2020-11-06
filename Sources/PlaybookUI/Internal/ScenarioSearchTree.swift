@@ -37,43 +37,46 @@ internal struct ScenarioSearchTreeIOS14: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        #if !targetEnvironment(macCatalyst)
-        VStack(spacing: .zero) {
-            searchBar()
+       
+        ZStack {
+            #if !targetEnvironment(macCatalyst)
+            VStack(spacing: .zero) {
+                searchBar()
 
-            if store.result.data.isEmpty {
-                emptyContent()
-            }
-            else {
-                ScrollView {
-                    LazyVStack(spacing: .zero) {
-                        ForEach(store.result.data, id: \.kind) { data in
-                            let isOpened = currentOpenedKindsBinding().wrappedValue.contains(data.kind)
+                if store.result.data.isEmpty {
+                    emptyContent()
+                }
+                else {
+                    ScrollView {
+                        LazyVStack(spacing: .zero) {
+                            ForEach(store.result.data, id: \.kind) { data in
+                                let isOpened = currentOpenedKindsBinding().wrappedValue.contains(data.kind)
 
-                            kindRow(
-                                data: data,
-                                isOpened: isOpened
-                            )
+                                kindRow(
+                                    data: data,
+                                    isOpened: isOpened
+                                )
 
-                            if isOpened {
-                                ForEach(data.scenarios, id: \.id) { data in
-                                    scenarioRow(
-                                        data: data,
-                                        isSelected: data.id == store.selectedScenario?.id
-                                    )
+                                if isOpened {
+                                    ForEach(data.scenarios, id: \.id) { data in
+                                        scenarioRow(
+                                            data: data,
+                                            isSelected: data.id == store.selectedScenario?.id
+                                        )
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
+            .background(
+                Color(.secondaryBackground).ignoresSafeArea()
+            )
+            #else
+            Text("MacOS Unavialable")
+            #endif
         }
-        .background(
-            Color(.secondaryBackground).ignoresSafeArea()
-        )
-        #else
-        Text("MacOS Unavialable")
-        #endif
     }
 }
 
