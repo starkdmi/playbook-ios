@@ -7,7 +7,11 @@ internal struct ScenarioSearchTree: View {
     var body: some View {
         #if swift(>=5.3)
         if #available(iOS 14.0, *) {
+            #if !targetEnvironment(macCatalyst)
             ScenarioSearchTreeIOS14(icons: icons)
+            #else
+            ScenarioSearchTreeIOS13(icons: icons)
+            #endif
         }
         else {
             ScenarioSearchTreeIOS13(icons: icons)
