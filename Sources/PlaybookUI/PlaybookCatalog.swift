@@ -62,7 +62,11 @@ internal struct PlaybookCatalogInternal: View {
     var body: some View {
         platformContent()
             .environmentObject(store)
-            .onAppear(perform: selectFirstScenario)
+            .onAppear(perform: {
+                #if targetEnvironment(macCatalyst)
+                selectFirstScenario()
+                #endif
+            })
             .sheet(item: $store.shareItem) { item in
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
