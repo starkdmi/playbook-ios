@@ -68,9 +68,11 @@ internal struct PlaybookCatalogInternal: View {
                     .edgesIgnoringSafeArea(.all)
             }
             .onReceive(Just(application.applicationState), perform: { state in
+                #if !targetEnvironment(macCatalyst)
                 if state != .background { // Reload when app returns from background
                     selectFirstScenario()
                 }
+                #endif
             })
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
                 print("Receive ", self.store.playbook.stores) // selectFirstScenario
