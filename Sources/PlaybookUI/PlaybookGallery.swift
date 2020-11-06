@@ -67,27 +67,8 @@ public struct PlaybookGallery: View {
     }
 }
 
-// Можем объявить для мак ос
-// #if os(macOS)
-// LazyvStack = ...
-// https://medium.com/@luca.jon/create-an-inset-grouped-list-in-swiftui-for-macos-20c0bcfaaa7
-// #endif
-
-/*#if os(macOS)
-public struct LazyVStack<Content> : View where Content : View {
-    public init(alignment: HorizontalAlignment = .center, spacing: CGFloat? = nil, pinnedViews: PinnedScrollableViews = .init(), @ViewBuilder content: () -> Content)
-
-    public typealias Body = Never
-}
-#endif*/
-
-// #if targetEnvironment(macCatalyst)
-
 #if swift(>=5.3)
-//@available(macOS 12.0, *)
-//@available(OSX 12.0, *)
 @available(iOS 14.0, *)
-//@available(OSX, unavailable)
 internal struct PlaybookGalleryIOS14: View {
     var name: String
     var snapshotColorScheme: ColorScheme
@@ -129,7 +110,7 @@ internal struct PlaybookGalleryIOS14: View {
                 dependency.scheduler.schedule(on: .main, action: store.prepare)
             }
             #else
-            Text("MacOS unavialable")
+            Text("MacOS unavailable")
             #endif
         }
     }
