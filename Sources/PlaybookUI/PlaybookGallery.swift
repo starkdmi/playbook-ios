@@ -104,14 +104,14 @@ internal struct PlaybookGalleryIOS14: View {
         GeometryReader { geometry in
             NavigationView {
                 ScrollView {
-                    #if targetEnvironment(macCatalyst)
-                        LazyVStack(spacing: .zero) {
-                            SearchBar(text: $store.searchText, height: 44)
-                                .padding(.leading, geometry.safeAreaInsets.leading)
-                                .padding(.trailing, geometry.safeAreaInsets.trailing)
+                    #if !targetEnvironment(macCatalyst)
+                    LazyVStack(spacing: .zero) {
+                        SearchBar(text: $store.searchText, height: 44)
+                            .padding(.leading, geometry.safeAreaInsets.leading)
+                            .padding(.trailing, geometry.safeAreaInsets.trailing)
 
-                            statefulBody(geometry: geometry)
-                        }
+                        statefulBody(geometry: geometry)
+                    }
                     #else
                     Text("MacOS unavilable")
                     #endif

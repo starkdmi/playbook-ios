@@ -45,7 +45,7 @@ internal struct ScenarioSearchTreeIOS14: View {
             }
             else {
                 ScrollView {
-                    #if targetEnvironment(macCatalyst)
+                    #if !targetEnvironment(macCatalyst)
                     LazyVStack(spacing: .zero) {
                         ForEach(store.result.data, id: \.kind) { data in
                             let isOpened = currentOpenedKindsBinding().wrappedValue.contains(data.kind)
