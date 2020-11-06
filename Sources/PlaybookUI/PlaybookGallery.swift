@@ -85,6 +85,7 @@ public struct LazyVStack<Content> : View where Content : View {
 //@available(macOS 12.0, *)
 //@available(OSX 12.0, *)
 @available(iOS 14.0, *)
+@available(OSX, unavailable)
 internal struct PlaybookGalleryIOS14: View {
     var name: String
     var snapshotColorScheme: ColorScheme
@@ -130,6 +131,7 @@ internal struct PlaybookGalleryIOS14: View {
 //@available(macOS 12.0, *)
 //@available(OSX 12.0, *)
 @available(iOS 14.0, *)
+@available(OSX, unavailable)
 private extension PlaybookGalleryIOS14 {
     @ViewBuilder
     func statefulBody(geometry: GeometryProxy) -> some View {

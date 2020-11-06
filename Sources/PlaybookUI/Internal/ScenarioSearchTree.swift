@@ -22,6 +22,7 @@ internal struct ScenarioSearchTree: View {
 //@available(macOS 12.0, *)
 //@available(OSX 12.0, *)
 @available(iOS 14.0, *)
+@available(OSX, unavailable)
 internal struct ScenarioSearchTreeIOS14: View {
     @EnvironmentObject
     var store: CatalogStore
@@ -70,6 +71,7 @@ internal struct ScenarioSearchTreeIOS14: View {
 //@available(macOS 12.0, *)
 //@available(OSX 12.0, *)
 @available(iOS 14.0, *)
+@available(OSX, unavailable)
 private extension ScenarioSearchTreeIOS14 {
     func searchTextBinding() -> Binding<String?> {
         Binding(
