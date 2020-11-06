@@ -113,7 +113,7 @@ internal struct PlaybookGalleryIOS14: View {
                             statefulBody(geometry: geometry)
                         }
                     #else
-                    EmptyView()
+                    Text("MacOS unavilable")
                     #endif
                 }
                 .ignoresSafeArea(edges: .horizontal)

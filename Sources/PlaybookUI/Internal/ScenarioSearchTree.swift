@@ -7,7 +7,11 @@ internal struct ScenarioSearchTree: View {
     var body: some View {
         #if swift(>=5.3)
         if #available(iOS 14.0, *) {
+            #if targetEnvironment(macCatalyst)
+            EmptyView()
+            #else
             ScenarioSearchTreeIOS14(icons: icons)
+            #endif
         }
         else {
             ScenarioSearchTreeIOS13(icons: icons)
@@ -22,6 +26,7 @@ internal struct ScenarioSearchTree: View {
 //@available(macOS 12.0, *)
 //@available(OSX 12.0, *)
 @available(iOS 14.0, *)
+//@available(macOS 10.16, *)
 //@available(OSX, unavailable)
 internal struct ScenarioSearchTreeIOS14: View {
     @EnvironmentObject
@@ -61,7 +66,7 @@ internal struct ScenarioSearchTreeIOS14: View {
                         }
                     }
                     #else
-                    EmptyView()
+                    Text("MacOS unavilable") //emptyContent()
                     #endif
                 }
             }
