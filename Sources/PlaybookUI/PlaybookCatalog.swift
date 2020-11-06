@@ -69,8 +69,12 @@ internal struct PlaybookCatalogInternal: View {
             }
             .onReceive(Just(application.applicationState), perform: { state in
                 if state != .background {
+                    let buf = store.selectedScenario
+                    store.selectedScenario = nil
+                    store.selectedScenario = buf
+                    
                     //selectFirstScenario()
-                    self.store.start()
+                    //self.store.start()
                 }
             })
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
