@@ -37,6 +37,7 @@ internal struct ScenarioSearchTreeIOS14: View {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
+        #if !targetEnvironment(macCatalyst)
         VStack(spacing: .zero) {
             searchBar()
 
@@ -45,7 +46,6 @@ internal struct ScenarioSearchTreeIOS14: View {
             }
             else {
                 ScrollView {
-                    #if !targetEnvironment(macCatalyst)
                     LazyVStack(spacing: .zero) {
                         ForEach(store.result.data, id: \.kind) { data in
                             let isOpened = currentOpenedKindsBinding().wrappedValue.contains(data.kind)
@@ -65,15 +65,15 @@ internal struct ScenarioSearchTreeIOS14: View {
                             }
                         }
                     }
-                    #else
-                    Text("MacOS unavilable") //emptyContent()
-                    #endif
                 }
             }
         }
         .background(
             Color(.secondaryBackground).ignoresSafeArea()
         )
+        #else
+        Text("MacOS Unavialable")
+        #endif
     }
 }
 

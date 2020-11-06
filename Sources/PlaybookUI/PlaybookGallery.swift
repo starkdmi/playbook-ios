@@ -101,10 +101,10 @@ internal struct PlaybookGalleryIOS14: View {
     var dependency
 
     var body: some View {
+        #if !targetEnvironment(macCatalyst)
         GeometryReader { geometry in
             NavigationView {
                 ScrollView {
-                    #if !targetEnvironment(macCatalyst)
                     LazyVStack(spacing: .zero) {
                         SearchBar(text: $store.searchText, height: 44)
                             .padding(.leading, geometry.safeAreaInsets.leading)
@@ -112,9 +112,6 @@ internal struct PlaybookGalleryIOS14: View {
 
                         statefulBody(geometry: geometry)
                     }
-                    #else
-                    Text("MacOS unavilable")
-                    #endif
                 }
                 .ignoresSafeArea(edges: .horizontal)
                 .navigationBarTitle(name)
@@ -131,6 +128,9 @@ internal struct PlaybookGalleryIOS14: View {
                 dependency.scheduler.schedule(on: .main, action: store.prepare)
             }
         }
+        #else
+        Text("MacOS unavialable")
+        #endif
     }
 }
 
