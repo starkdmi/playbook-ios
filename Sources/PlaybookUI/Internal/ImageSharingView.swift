@@ -10,6 +10,8 @@ internal struct ImageSharingView: UIViewControllerRepresentable {
     var onComplete: () -> Void
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
+        print("share called?")
+        
         let uiViewController = UIActivityViewController(
             activityItems: [item.image],
             applicationActivities: nil
@@ -17,6 +19,9 @@ internal struct ImageSharingView: UIViewControllerRepresentable {
         if !Bundle.main.hasPhotoLibraryAddUsageDescription {
             uiViewController.excludedActivityTypes = [.saveToCameraRoll]
         }
+        
+        print("share called")
+        
         return uiViewController
     }
 

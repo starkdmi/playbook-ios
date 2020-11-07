@@ -123,7 +123,7 @@ private extension PlaybookCatalogInternal {
                 )
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    //application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
             )
@@ -225,6 +225,8 @@ private extension PlaybookCatalogInternal {
         let image = UIGraphicsImageRenderer(bounds: uiView.bounds).image { _ in
             uiView.drawHierarchy(in: uiView.bounds, afterScreenUpdates: true)
         }
+        
+        print("image", image)
 
         store.shareItem = ImageSharingView.Item(image: image)
     }
