@@ -57,7 +57,7 @@ internal struct PlaybookCatalogInternal: View {
     @Environment(\.verticalSizeClass)
     var verticalSizeClass
     
-    //let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
+    let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
 
     var body: some View {
         platformContent()
@@ -67,17 +67,17 @@ internal struct PlaybookCatalogInternal: View {
                 selectFirstScenario()
                 #endif
             })
-            .sheet(item: $store.shareItem) { item in
+            .sheet(item: $store.shareItem) { item in // Multiple sheet (!)
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
-            /*.onReceive(Just(application.applicationState), perform: { state in
+            .onReceive(Just(application.applicationState), perform: { state in
                 #if !targetEnvironment(macCatalyst)
                 if state != .background { // Reload when app returns from background
                     selectFirstScenario()
                 }
                 #endif
-            })*/
+            })
  
  
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
@@ -125,7 +125,7 @@ private extension PlaybookCatalogInternal {
                 )
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    //application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
             )
