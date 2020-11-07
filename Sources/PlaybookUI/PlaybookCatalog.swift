@@ -123,7 +123,7 @@ private extension PlaybookCatalogInternal {
                 )
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    //application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
             )
