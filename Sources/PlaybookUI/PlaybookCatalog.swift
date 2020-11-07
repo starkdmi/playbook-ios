@@ -218,7 +218,9 @@ private extension PlaybookCatalogInternal {
     }
 
     func share() {
+        print("Share?")
         guard let uiView = contentUIView else { return }
+        print("Share", uiView)
 
         let image = UIGraphicsImageRenderer(bounds: uiView.bounds).image { _ in
             uiView.drawHierarchy(in: uiView.bounds, afterScreenUpdates: true)
