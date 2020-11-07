@@ -57,18 +57,18 @@ internal struct PlaybookCatalogInternal: View {
     @Environment(\.verticalSizeClass)
     var verticalSizeClass
     
-    let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
+    //let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
 
     var body: some View {
         platformContent()
             .environmentObject(store)
             .onAppear(perform: {
-                //#if targetEnvironment(macCatalyst)
+                #if targetEnvironment(macCatalyst)
                 selectFirstScenario()
-                //#endif
+                #endif
             })
             .sheet(item: $store.shareItem) { item in
-                return ImageSharingView(item: item) { self.store.shareItem = nil; print("Sheet done") }
+                ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
             /*.onReceive(Just(application.applicationState), perform: { state in
@@ -125,7 +125,7 @@ private extension PlaybookCatalogInternal {
                 )
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    //application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
             )
