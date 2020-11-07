@@ -67,7 +67,7 @@ internal struct PlaybookCatalogInternal: View {
                 selectFirstScenario()
                 #endif
             })
-            .sheet(item: $store.shareItem) { item in // Multiple sheet (!)
+            .sheet(item: $store.shareItem) { item in
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
