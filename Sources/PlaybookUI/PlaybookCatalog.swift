@@ -64,9 +64,9 @@ internal struct PlaybookCatalogInternal: View {
         platformContent()
             .environmentObject(store)
             .onAppear(perform: {
-                //#if targetEnvironment(macCatalyst)
+                #if targetEnvironment(macCatalyst)
                 selectFirstScenario()
-                //#endif
+                #endif
             })
             .sheet(item: $store.shareItem) { item in
                 ImageSharingView(item: item) { self.store.shareItem = nil }
@@ -74,9 +74,9 @@ internal struct PlaybookCatalogInternal: View {
             }
             .onReceive(Just(application.applicationState), perform: { state in
                 #if !targetEnvironment(macCatalyst)
-                if state != .background { // Reload when app returns from background
+                //if state != .background { // Reload when app returns from background
                     selectFirstScenario()
-                }
+                //}
                 /*if state != self.appState {
                     selectFirstScenario()
                 }*/
