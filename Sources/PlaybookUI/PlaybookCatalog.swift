@@ -57,29 +57,29 @@ internal struct PlaybookCatalogInternal: View {
     @Environment(\.verticalSizeClass)
     var verticalSizeClass
     
-    static let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
-    @State var appState = application.applicationState
+    let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
+    //@State var appState = application.applicationState
     
     var body: some View {
         platformContent()
             .environmentObject(store)
             .onAppear(perform: {
-                #if targetEnvironment(macCatalyst)
+                //#if targetEnvironment(macCatalyst)
                 selectFirstScenario()
-                #endif
+                //#endif
             })
             .sheet(item: $store.shareItem) { item in
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
-            .onReceive(Just(PlaybookCatalogInternal.application.applicationState), perform: { state in
+            .onReceive(Just(application.applicationState), perform: { state in
                 #if !targetEnvironment(macCatalyst)
-                /*if state != .background { // Reload when app returns from background
-                    selectFirstScenario()
-                }*/
-                if state != self.appState {
+                if state != .background { // Reload when app returns from background
                     selectFirstScenario()
                 }
+                /*if state != self.appState {
+                    selectFirstScenario()
+                }*/
                 #endif
             })
  
@@ -129,7 +129,7 @@ private extension PlaybookCatalogInternal {
                 )
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    PlaybookCatalogInternal.application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    application.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
             )
