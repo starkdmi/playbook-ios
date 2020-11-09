@@ -36,6 +36,7 @@ private struct SearchBarWrapper: UIViewRepresentable {
         searchBar.backgroundImage = UIImage()
         searchBar.setPositionAdjustment(UIOffset(horizontal: 8, vertical: 0), for: .search)
         searchBar.setPositionAdjustment(UIOffset(horizontal: -8, vertical: 0), for: .clear)
+        searchBar.tintColor = UIColor(red: 239/255, green: 70/255, blue: 70/255, alpha: 1.0)
         return searchBar
     }
 
@@ -53,6 +54,12 @@ private extension SearchBarWrapper {
 
         init(_ base: SearchBarWrapper) {
             self.base = base
+        }
+        
+        func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+            //print("reload0")
+            //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) // @starkdmi
+            return true
         }
 
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

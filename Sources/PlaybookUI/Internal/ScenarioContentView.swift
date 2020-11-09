@@ -41,6 +41,10 @@ internal struct ScenarioContentView: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: ScenarioViewController, context: Context) {
         contentUIView = uiViewController.view
+        
+        //contentUIView?.backgroundColor = .systemRed
+        //uiViewController.shouldStatusBarHidden = true
+        
         uiViewController.scenario = scenario
         uiViewController.additionalSafeAreaInsets = additionalSafeAreaInsets
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 internal struct ScenarioSearchTree: View {
     var icons: [String: Image]
@@ -37,6 +38,18 @@ internal struct ScenarioSearchTreeIOS14: View {
         ZStack {
             #if !targetEnvironment(macCatalyst)
             VStack(spacing: .zero) {
+                /*if UIDevice.current.userInterfaceIdiom == .phone {
+                    GeometryReader { geometry in
+                        Group {
+                            if geometry.size.width < geometry.size.height {
+                                searchBar()
+                            } else {
+                                EmptyView()
+                            }
+                        }
+                    }
+                }*/
+                
                 searchBar()
 
                 if store.result.data.isEmpty {
@@ -67,10 +80,11 @@ internal struct ScenarioSearchTreeIOS14: View {
                 }
             }
             .background(
-                Color(.secondaryBackground).ignoresSafeArea()
+                (colorScheme == .light ? Color.white : Color(red: 43/255, green: 43/255, blue: 43/255)).ignoresSafeArea()
+                //Color(.secondaryBackground).ignoresSafeArea()
             )
             #else
-            Text("MacOS unavailable")
+            EmptyView() // MacOS 10- unavailable
             #endif
         }
     }
@@ -119,7 +133,8 @@ private extension ScenarioSearchTreeIOS14 {
                         //Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
                             .renderingMode(.template)
                             .imageScale(.medium)
-                            .foregroundColor(Color(.primaryBlue))
+                            //.foregroundColor(Color(.primaryBlue))
+                            .foregroundColor(Color(red: 239/255, green: 70/255, blue: 70/255))
                             //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
 
                         Text(data.kind.rawValue)
@@ -129,6 +144,7 @@ private extension ScenarioSearchTreeIOS14 {
                             .lineLimit(nil)
                             .fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(Color(.label))
+                            //.foregroundColor(Color(red: 239/255, green: 70/255, blue: 70/
                             .background(Highlight(data.shouldHighlight))
 
                         Spacer(minLength: 16)
@@ -137,7 +153,7 @@ private extension ScenarioSearchTreeIOS14 {
 
                     HorizontalSeparator()
                 }
-                .padding(.leading, 16)
+                .padding(.leading, 16) 
             }
         )
     }
@@ -152,7 +168,7 @@ private extension ScenarioSearchTreeIOS14 {
                     HStack(spacing: 8) {
                         Image(symbol: .circleFill)
                             .font(.system(size: 10))
-                            .foregroundColor(Color(isSelected ? .primaryBlue : .tertiarySystemFill))
+                            .foregroundColor(Color(isSelected ? UIColor(red: 239/255, green: 70/255, blue: 70/255, alpha: 1.0) : .tertiarySystemFill)) // .primaryBlue
 
                         Text(data.scenario.name.rawValue)
                             .font(.subheadline)
@@ -191,7 +207,7 @@ private extension ScenarioSearchTreeIOS14 {
     func searchBar() -> some View {
         VStack(spacing: .zero) {
             SearchBar(text: searchTextBinding(), height: 44)
-
+            
             Counter(
                 numerator: store.result.matchedCount,
                 denominator: store.scenariosCount
@@ -230,8 +246,8 @@ internal struct ScenarioSearchTreeIOS13: View {
             }
         }
         .background(
-            Color(.secondaryBackground)
-                .edgesIgnoringSafeArea(.all)
+            //Color(.secondaryBackground).edgesIgnoringSafeArea(.all)
+            (colorScheme == .light ? Color.white : Color(red: 43/255, green: 43/255, blue: 43/255)).edgesIgnoringSafeArea(.all)
         )
     }
 }
@@ -337,7 +353,8 @@ private extension ScenarioSearchTreeIOS13 {
                 //Image(systemName: self.icons[data.kind.rawValue] ?? "bookmark.fill")
                     .renderingMode(.template)
                     .imageScale(.medium)
-                    .foregroundColor(Color(.primaryBlue))
+                    //.foregroundColor(Color(.primaryBlue))
+                    .foregroundColor( Color(red: 237/255, green:70/255, blue: 70/255))
                     //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
 
                 Text(data.kind.rawValue)
@@ -363,7 +380,7 @@ private extension ScenarioSearchTreeIOS13 {
             HStack(spacing: 8) {
                 Image(symbol: .circleFill)
                     .font(.system(size: 10))
-                    .foregroundColor(Color(isSelected ? .primaryBlue : .tertiarySystemFill))
+                    .foregroundColor(Color(isSelected ? UIColor(red: 237/255, green:70/255, blue: 70/255, alpha: 1.0) : .tertiarySystemFill)) // .primaryBlue
 
                 Text(data.scenario.name.rawValue)
                     .font(.subheadline)

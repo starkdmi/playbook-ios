@@ -23,7 +23,7 @@ public struct PlaybookCatalog: View {
         underlyingView = PlaybookCatalogInternal(
             name: name,
             playbook: playbook,
-            store: CatalogStore(playbook: playbook),
+            store: CatalogStore(playbook: playbook, isSearchTreeHidden: false), // , isSearchTreeHidden: true
             icons: icons,
             infoTapped: infoTapped
         )
@@ -60,28 +60,65 @@ internal struct PlaybookCatalogInternal: View {
     let application = UIApplication.value(forKeyPath: #keyPath(UIApplication.shared)) as! UIApplication
     //@State var appState = application.applicationState
     
+    //@State var previousColorScheme = ColorScheme.light
+    @State var previousScenario: SearchedData?
+    
     var body: some View {
         platformContent()
             .environmentObject(store)
             .onAppear(perform: {
-                #if targetEnvironment(macCatalyst)
+                //#if targetEnvironment(macCatalyst)
                 selectFirstScenario()
-                #endif
+                //#endif
+                
+                //self.store.isSearchTreeHidden = false
+                                
+                //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             })
             .sheet(item: $store.shareItem) { item in
                 ImageSharingView(item: item) { self.store.shareItem = nil }
                     .edgesIgnoringSafeArea(.all)
             }
-            .onReceive(Just(application.applicationState), perform: { state in
-                #if !targetEnvironment(macCatalyst)
-                //if state != .background { // Reload when app returns from background
-                    selectFirstScenario()
-                //}
-                /*if state != self.appState {
-                    selectFirstScenario()
-                }*/
-                #endif
+            
+            .onReceive(Just(self.$store.selectedScenario.wrappedValue?.id), perform: { id in
+                if id == nil {
+                    if previousScenario != nil {
+                        if store.selectedScenario == nil, let store = previousScenario, let scenario = previousScenario?.scenario  {
+                                               
+                            self.store.start()
+                            self.store.selectedScenario = SearchedData(
+                                scenario: scenario,
+                                kind: store.kind,
+                                shouldHighlight: false
+                            )
+                        } else {
+                            selectFirstScenario()
+                        }
+                    }
+                    
+                    //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                
+                previousScenario = self.$store.selectedScenario.wrappedValue
             })
+            
+            /*.onReceive(Just(colorScheme), perform: { scheme in
+                if colorScheme != previousColorScheme {
+                    selectFirstScenario()
+                    print("reload2", colorScheme, previousColorScheme)
+                    //UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    
+                    previousColorScheme = colorScheme
+                }
+            })*/
+        
+            /*.onReceive(Just(application.applicationState), perform: { state in
+                #if !targetEnvironment(macCatalyst)
+                //if state != .background {
+                    selectFirstScenario() // Reload when app returns from background
+                //}
+                #endif
+            })*/
  
  
             /*.onReceive(Just(self.$store.selectedScenario), perform: { _ in
@@ -95,7 +132,7 @@ internal struct PlaybookCatalogInternal: View {
 
 private extension PlaybookCatalogInternal {
     var bottomBarHeight: CGFloat { 44 }
-    
+        
     func platformContent() -> some View {
         switch (horizontalSizeClass, verticalSizeClass) {
         case (.regular, .regular):
@@ -154,7 +191,7 @@ private extension PlaybookCatalogInternal {
 
             Spacer.fixed(length: 44)
 
-            Text("There are no scenarios")
+            Text("There are no templates")
                 .foregroundColor(Color(.label))
                 .font(.system(size: 24, weight: .bold))
                 .lineLimit(nil)
@@ -183,7 +220,7 @@ private extension PlaybookCatalogInternal {
     }
 
     func bottomBar(firstBarItem: CatalogBarItem) -> some View {
-        HStack(spacing: 24) {
+        HStack(spacing: 16) {
             firstBarItem
 
             if store.selectedScenario != nil {
@@ -198,22 +235,31 @@ private extension PlaybookCatalogInternal {
                 Spacer(minLength: 0)
 
                 HStack(spacing: 10) {
+                    //#if !targetEnvironment(macCatalyst)
                     Text(name)
                         .bold()
                         .lineLimit(1)
                         .font(.system(size: 24))
+                        //.padding(.bottom, 2)
+                    /*#else
+                    Text(name)
+                        .bold()
+                        .lineLimit(1)
+                        .font(.system(size: 24))
+                        .foregroundColor(Color(.label))
+                    #endif*/
                     
                     Button(action: infoTapped) {
                         Image(symbol: .info)
                             .imageScale(.large)
-                            .foregroundColor(Color(.label))
+                            //.foregroundColor(Color(.label))
                             .frame(width: 32, height: 32)
                             //.foregroundColor(self.colorScheme == .light ? Color(red: 24/255, green: 36/255, blue: 45/255) : Color.white)
                     }
                 }
             }
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, 16)
         .frame(height: bottomBarHeight)
         .background(
             Blur(style: .systemMaterial)
@@ -221,6 +267,7 @@ private extension PlaybookCatalogInternal {
                 .edgesIgnoringSafeArea(.all),
             alignment: .topLeading
         )
+        .foregroundColor(colorScheme == .light ? Color(.label) : Color(red: 237/255, green: 70/255, blue: 70/255))
     }
 
     func share() {

@@ -9,7 +9,7 @@ internal class ScenarioSearchStore: ObservableObject {
     private(set) lazy var scenariosCount = playbook.stores.reduce(0) { $0 + $1.scenarios.count }
 
     var searchText: String? {
-        didSet { search(searchText) }
+        didSet { search(searchText)}
     }
 
     init(playbook: Playbook) {
